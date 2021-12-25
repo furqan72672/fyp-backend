@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const userRoute = require('./routes/users')
 
-mongoose.connect('mongodb://localhost:27017/sales-alibi')
+mongoose.connect('mongodb+srv://SalesAlibi:SalesAlibi@cluster0.46a8g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
