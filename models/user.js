@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     guard: {
         type: Number,
-        required: true,
+        default: 0
     },
     shift: {
         from: Number,
