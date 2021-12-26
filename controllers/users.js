@@ -65,17 +65,20 @@ exports.signIn = (req, res, next) => {
         if (docs.length < 1) return authError(req, res)
         bcrypt.compare(req.body.password, docs[0].password, (err, same) => {
             if (err) return authError(req, res)
-            const token = jwt.sign(
-                {
-                    email: docs[0].email,
-                    id: docs[0]._id
-                },
-                "49486553965335887759405095625744323",
-                {
-                    expiresIn: "1h"
-                }
-            )
-            return res.status(201).json({ AccessToken: token })
+            else if (same) {
+                const token = jwt.sign(
+                    {
+                        email: docs[0].email,
+                        id: docs[0]._id
+                    },
+                    "49486553965335887759405095625744323",
+                    {
+                        expiresIn: "1h"
+                    }
+                )
+                return res.status(201).json({ AccessToken: token })
+            }
+            authError(req, res)
         })
     })
 }
