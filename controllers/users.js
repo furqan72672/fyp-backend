@@ -73,7 +73,7 @@ exports.signIn = (req, res, next) => {
                     },
                     "49486553965335887759405095625744323",
                     {
-                        expiresIn: "1s"
+                        expiresIn: 1 * 1
                     }
                 )
                 return res.status(201).json({ AccessToken: token })
