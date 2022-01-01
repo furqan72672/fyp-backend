@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const userRoute = require('./routes/users')
 const productRoute = require('./routes/products')
 
-mongoose.connect('mongodb://localhost:27017/sales-alibi')
+mongoose.connect('mongodb+srv://SalesAlibi:SalesAlibi@cluster0.46a8g.mongodb.net/myFirstDatabase?authSource=admin&replicaSet=atlas-8ynosf-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
