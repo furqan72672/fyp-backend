@@ -15,18 +15,23 @@ const productSchema = new mongoose.Schema({
     },
     purchase_price: {
         type: Number,
+        required: true,
     },
     sale_price: {
         type: Number,
+        required: true,
     },
     seige_code: {
         type: String,
+        required: true,
     },
     supplier: {
         type: String,
+        required: true,
     },
     brand: {
         type: String,
+        required: true,
     }
 },
     { timestamps: true }
