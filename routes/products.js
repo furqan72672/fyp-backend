@@ -10,6 +10,6 @@ router.get('/:productId', ProductController.getOne)
 
 router.get('/barcode/:barcode', ProductController.getBarcode)
 
-router.post('/', auth, ProductController.createOne)
+// router.post('/', auth, ProductController.createOne)
 
 module.exports = router

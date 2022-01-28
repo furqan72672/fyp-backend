@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const saleSchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId
     },
@@ -14,12 +14,16 @@ const saleSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
-    sold: {
+    quantity: {
         type: Number,
         required: true
     },
+    type: {
+        type: Number,
+        required: true
+    }
 },
     { timestamps: true }
 )
 
-module.exports = mongoose.model('Sale', saleSchema)
+module.exports = mongoose.model('Request', requestSchema)

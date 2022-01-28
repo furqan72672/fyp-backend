@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const userRoute = require('./routes/users')
 const productRoute = require('./routes/products')
+const saleRoute = require('./routes/sales')
+const requestRoute = require('./routes/requests')
 
 mongoose.connect('mongodb+srv://SalesAlibi:SalesAlibi@cluster0.46a8g.mongodb.net/myFirstDatabase?authSource=admin&replicaSet=atlas-8ynosf-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true')
 
@@ -25,6 +27,8 @@ app.use((req, res, next) => {
 app.use(morgan('dev'))
 app.use('/users', userRoute)
 app.use('/products', productRoute)
+app.use('/sales', saleRoute)
+app.use('/requests', requestRoute)
 
 
 app.use((req, res, next) => {

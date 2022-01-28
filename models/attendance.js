@@ -4,26 +4,15 @@ const branchSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId
     },
-    store_name: {
-        type: String,
-        required: true
-    },
-    rent: {
-        type: Number,
-    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
-    location: {
-        lat: {
-            type: Number,
-        },
-        long: {
-            type: Number,
-        }
-    },
+    status: {
+        type: Number,
+        default: false,
+    }
 },
     { timestamps: true }
 )
