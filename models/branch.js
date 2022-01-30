@@ -11,7 +11,12 @@ const branchSchema = new mongoose.Schema({
     rent: {
         type: Number,
     },
-    user: {
+    salesman: {
+        type: Array,
+        ref: 'User',
+        required: true,
+    },
+    manager: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,

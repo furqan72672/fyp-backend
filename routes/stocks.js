@@ -8,8 +8,8 @@ router.get('/', auth, UserController.getAll)
 
 router.post('/signup', UserController.signUp)
 
-router.get('/profile/:userId', auth, UserController.getProfile)
+// router.get('/profile/:userId', auth, UserController.getProfile)
 
-router.post('/sign-in', UserController.signIn)
+// router.post('/sign-in', UserController.signIn)
 
 module.exports = router
