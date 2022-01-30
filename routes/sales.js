@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const manager = require('../middlewares/authenticateManager')
 const auth = require('../middlewares/authenticate')
 const SalesController = require('../controllers/sales')
 
 
-// router.get('/', auth, UserController.getAll)
+router.get('/', manager, SalesController.getAll)
 
 router.post('/', auth, SalesController.addSale)
 

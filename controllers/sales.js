@@ -3,7 +3,7 @@ const serverError = require('../utils/internalServerError')
 // const bcrypt = require('bcryptjs')
 // const authError = require('../utils/unauthorizedError')
 // const jwt = require('jsonwebtoken')
-const Product = require('../models/product')
+const User = require('../models/user')
 const Sale = require('../models/sale')
 
 exports.addSale = (req, res, next) => {
@@ -21,6 +21,13 @@ exports.addSale = (req, res, next) => {
             return serverError(err, req, res)
         })
     })
+}
+
+exports.getAll = (req, res, next) => {
+    Sale.find().populate('user').exec().then(docs => {
+        if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
+        return res.status(200).json(docs)
+    }).catch()
 }
 
 // exports.getProfile = (req, res, next) => {
