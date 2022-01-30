@@ -62,10 +62,9 @@ exports.signUp = (req, res, next) => {
 
 exports.signIn = (req, res, next) => {
     User.find({ email: req.body.email }).exec().then(docs => {
-        if (docs.length === 1) return authError(req, res)
+        if (docs.length === 0) return authError(req, res)
         bcrypt.compare(req.body.password, docs[0].password, (err, same) => {
-            if (err) return authError(req, res)
-            else {
+            if (same) {
                 const token = jwt.sign(
                     {
                         email: docs[0].email,
@@ -78,6 +77,7 @@ exports.signIn = (req, res, next) => {
                 )
                 return res.status(201).json({ AccessToken: token })
             }
+            else return authError(req, res)
         })
     })
 }
