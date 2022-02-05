@@ -42,7 +42,7 @@ exports.getAllForManager = async (req, res, next) => {
         salesmen.push(salesman)
     })
 
-    docs = await Request.find({ user: { $in: salesmen } }).populate('product user').exec().catch(err => {
+    docs = await Request.find({ user: { $in: salesmen } }).populate([{ path: 'product' }, { path: 'user', populate: { path: 'branch' } }]).exec().catch(err => {
         return serverError(err, req, res)
     })
 
