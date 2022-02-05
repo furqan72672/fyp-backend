@@ -39,3 +39,18 @@ exports.addStock = async (req, res, next) => {
         })
     }
 }
+
+exports.patchStock = async (req, res, next) => {
+    var doc = await Stock.findOneAndUpdate({ _id: req.params.id }, { quantity: req.body.quantity }, { new: true }).exec().catch(err => {
+        serverError(err, req, res)
+    })
+    console.log(doc)
+
+    if (doc) {
+        return res.status(201).json(doc)
+    }
+
+    else {
+        return res.status(404).json({ message: "Stock not Found" })
+    }
+}
