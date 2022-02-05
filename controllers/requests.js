@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const serverError = require('../utils/internalServerError')
 const Product = require('../models/product')
 const Request = require('../models/request')
+const Branch = require('../models/branch')
+const User = require('../models/user')
 
 exports.addRequest = (req, res, next) => {
     Product.find({ barcode: req.body.product }).exec().then(docs => {
@@ -19,4 +21,36 @@ exports.addRequest = (req, res, next) => {
             return serverError(err, req, res)
         })
     })
+}
+
+exports.getAllForManager = async (req, res, next) => {
+    var docs = await User.find({ _id: req.userData.id }).exec().catch(err => {
+        return serverError(err, req, res)
+    })
+
+    var branches = [];
+    docs[0].branch.forEach(branch => {
+        branches.push(branch)
+    })
+
+    docs = await Branch.find({ _id: { $in: branches } }, { salesman: 1, _id: 0 }).exec().catch(err => {
+        return serverError(err, req, res)
+    })
+
+    var salesmen = [];
+    docs[0].salesman.forEach(salesman => {
+        salesmen.push(salesman)
+    })
+
+    docs = await Request.find({ user: { $in: salesmen } }).populate('product user').exec().catch(err => {
+        return serverError(err, req, res)
+    })
+
+    if (docs.length > 0) {
+        return res.status(200).json(docs)
+    }
+    else {
+        return res.status(406).json({ message: "No requests found" })
+    }
+
 }

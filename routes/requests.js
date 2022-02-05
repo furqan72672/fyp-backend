@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const auth = require('../middlewares/authenticate')
+const manager = require('../middlewares/authenticateManager')
 const RequestController = require('../controllers/requests')
 
 
-// router.get('/', auth, UserController.getAll)
+router.get('/', manager, RequestController.getAllForManager)
 
 router.post('/', auth, RequestController.addRequest)
 
