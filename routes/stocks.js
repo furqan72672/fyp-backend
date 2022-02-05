@@ -1,12 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const auth = require('../middlewares/authenticate')
-const UserController = require('../controllers/users')
+const StockController = require('../controllers/stocks')
 
 
-router.get('/', auth, UserController.getAll)
+router.get('/', auth, StockController.getAllForManager)
 
-router.post('/signup', UserController.signUp)
+router.post('/', auth, StockController.addStock)
+
+// router.post('/signup', UserController.signUp)
 
 // router.get('/profile/:userId', auth, UserController.getProfile)
 
