@@ -54,3 +54,19 @@ exports.getAllForManager = async (req, res, next) => {
     }
 
 }
+
+exports.delete = (req, res, next) => {
+    Request.deleteOne({ _id: req.params.id }).exec().then(doc => {
+        console.log(doc)
+        // return res.status(201).json({})
+        if (doc.deletedCount === 1) {
+            return res.status(201).json({ deleted: 1 })
+        }
+        else {
+            return res.status(404).json({ deleted: "Request not found" })
+        }
+    }).catch(err => {
+        return serverError(err, req, res)
+    })
+
+}

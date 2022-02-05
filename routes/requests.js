@@ -9,6 +9,8 @@ router.get('/', manager, RequestController.getAllForManager)
 
 router.post('/', auth, RequestController.addRequest)
 
+router.delete('/:id', manager, RequestController.delete)
+
 // router.get('/profile/:userId', auth, UserController.getProfile)
 
 // router.post('/sign-in', UserController.signIn)
