@@ -1,10 +1,8 @@
 const mongoose = require('mongoose')
 const serverError = require('../utils/internalServerError')
-// const bcrypt = require('bcryptjs')
-// const authError = require('../utils/unauthorizedError')
-// const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const Sale = require('../models/sale')
+const Branch = require('../models/branch')
 
 exports.addSale = (req, res, next) => {
     Product.find({ barcode: req.body.product }).exec().then(docs => {
@@ -28,6 +26,25 @@ exports.getAll = (req, res, next) => {
         if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
         return res.status(200).json(docs)
     }).catch()
+}
+
+exports.getAllForManager = async (req, res, next) => {
+    var salesmen = [];
+    var docs = await Branch.find({ manager: req.userData.id }).exec().catch(err => {
+        serverError(err, req, res)
+    })
+    docs.forEach((branch) => {
+        branch.salesman.forEach((salesman) => {
+            salesmen.push(salesman)
+        })
+    })
+    console.log(salesmen);
+    Sale.find({ user: { $in: salesmen } }).populate({ path: 'user', populate: { path: 'branch' } }).exec().then(docs => {
+        if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
+        return res.status(200).json(docs)
+    }).catch(err => {
+        serverError(err, req, res)
+    })
 }
 
 // exports.getProfile = (req, res, next) => {

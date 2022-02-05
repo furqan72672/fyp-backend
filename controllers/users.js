@@ -21,7 +21,7 @@ exports.getAll = (req, res, next) => {
 }
 
 exports.getProfile = (req, res, next) => {
-    User.find({ _id: req.userData.id }).exec().then(docs => {
+    User.find({ _id: req.userData.id }).populate({ path: 'branch', populate: { path: 'manager salesman' } }).exec().then(docs => {
         if (docs.length >= 1) return res.status(200).json(docs[0])
         res.status(404).json({ Error: "Profile Not found" })
     })

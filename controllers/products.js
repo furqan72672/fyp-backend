@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Product = require('../models/product')
 const User = require('../models/user')
 const serverError = require('../utils/internalServerError')
-const authError = require('../utils/unauthorizedError')
+// const authError = require('../utils/unauthorizedError')
 
 exports.getAll = (req, res, next) => {
     Product.find().exec().then(docs => {

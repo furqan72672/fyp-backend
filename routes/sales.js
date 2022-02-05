@@ -5,7 +5,7 @@ const auth = require('../middlewares/authenticate')
 const SalesController = require('../controllers/sales')
 
 
-router.get('/', manager, SalesController.getAll)
+router.get('/', manager, SalesController.getAllForManager)
 
 router.post('/', auth, SalesController.addSale)
 

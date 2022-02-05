@@ -4,7 +4,7 @@ const auth = require('../middlewares/authenticate')
 const BranchController = require('../controllers/branches')
 
 
-router.post('/', auth, BranchController.addBranch)
+router.get('/:id', auth, BranchController.getUserBranch)
 
 // router.post('/signup', UserController.signUp)
 

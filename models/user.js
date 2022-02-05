@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
     visa: {
         type: Number,
     },
+    branch: {
+        type: [],
+        ref: 'Branch'
+    }
 },
     { timestamps: true }
 )
