@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { required } = require('nodemon/lib/config')
 
 const branchSchema = new mongoose.Schema({
     _id: {
@@ -22,14 +23,15 @@ const branchSchema = new mongoose.Schema({
         required: true,
     },
     location: {
-        lat: {
-            type: Number,
+        type: {
+            type: String,
+            enum: ['Point'],
             required: true
         },
-        long: {
-            type: Number,
-            required: true
-        }
+        coordinates: {
+            type: [Number],
+            required: true,
+        },
     },
 },
     { timestamps: true }

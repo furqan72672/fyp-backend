@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const branchSchema = new mongoose.Schema({
+const attendanceSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId
     },
@@ -10,11 +10,11 @@ const branchSchema = new mongoose.Schema({
         required: true,
     },
     status: {
-        type: Number,
+        type: Boolean,
         default: false,
     }
 },
     { timestamps: true }
 )
 
-module.exports = mongoose.model('Branch', branchSchema)
+module.exports = mongoose.model('Attendance', attendanceSchema)
