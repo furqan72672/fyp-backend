@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const serverError = require('../utils/internalServerError')
 const Sale = require('../models/sale')
 const Branch = require('../models/branch')
+const Product = require('../models/product')
 
 exports.addSale = (req, res, next) => {
     Product.find({ barcode: req.body.product }).exec().then(docs => {
