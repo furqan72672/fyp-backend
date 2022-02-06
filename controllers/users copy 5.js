@@ -23,7 +23,7 @@ exports.getAll = (req, res, next) => {
 exports.getProfile = (req, res, next) => {
     User.find({ _id: req.params.userId }).exec().then(docs => {
         if (docs.length >= 1) return res.status(200).json(docs)
-        res.status(404).json({ Error: "Profile Not found" })
+        res.status(404).json({ error: "Profile Not found" })
     })
 }
 
