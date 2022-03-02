@@ -37,6 +37,7 @@ exports.getAllForManager = async (req, res, next) => {
         return serverError(err, req, res)
     })
 
+    if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
     var salesmen = [];
     docs[0].salesman.forEach(salesman => {
         salesmen.push(salesman)

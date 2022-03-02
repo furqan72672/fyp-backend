@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const serverError = require('../utils/internalServerError')
-const User = require('../models/user')
 const Branch = require('../models/branch')
 
 exports.getUserBranch = (req, res, next) => {
