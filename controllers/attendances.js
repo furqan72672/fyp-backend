@@ -49,7 +49,7 @@ exports.getAllForManager = async (req, res, next) => {
         })
     })
     // console.log(salesmen);
-    Attendance.find({ $and: [{ createdAt: { $gte: start, $lte: end } }, { user: { $in: salesmen } }] }).populate({ path: 'user' }).exec().then(docs => {
+    Attendance.find({ $and: [{ createdAt: { $gte: start, $lte: end } }, { user: { $in: salesmen } }] }).populate({ path: 'user', populate: { path: 'branch' } }).exec().then(docs => {
         if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
         return res.status(200).json(docs)
     }).catch(err => {
