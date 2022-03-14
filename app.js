@@ -10,6 +10,7 @@ const requestRoute = require('./routes/requests')
 const branchRoute = require('./routes/branches')
 const stockRoute = require('./routes/stocks')
 const attendancesRoute = require('./routes/attendances')
+const adminRoute = require('./routes/admin')
 
 mongoose.connect('mongodb+srv://SalesAlibi:SalesAlibi@cluster0.46a8g.mongodb.net/myFirstDatabase?authSource=admin&replicaSet=atlas-8ynosf-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true')
 
@@ -35,7 +36,7 @@ app.use('/requests', requestRoute)
 app.use('/branches', branchRoute)
 app.use('/stocks', stockRoute)
 app.use('/attendances', attendancesRoute)
-
+app.use('/admin', adminRoute)
 
 app.use((req, res, next) => {
     const error = new Error('Specified Route was not found');

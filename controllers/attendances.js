@@ -25,7 +25,6 @@ exports.markAttendance = async (req, res, next) => {
     }
 }
 
-//Handle with moment.js
 exports.getToday = async (req, res, next) => {
 
     var start = moment().startOf('day').toISOString();
@@ -50,6 +49,54 @@ exports.getAllForManager = async (req, res, next) => {
     })
     // console.log(salesmen);
     Attendance.find({ $and: [{ createdAt: { $gte: start, $lte: end } }, { user: { $in: salesmen } }] }).populate({ path: 'user', populate: { path: 'branch' } }).exec().then(docs => {
+        if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
+        return res.status(200).json(docs)
+    }).catch(err => {
+        serverError(err, req, res)
+    })
+}
+
+exports.getAllForDay = async (req, res, next) => {
+    var start = moment().startOf('day').toISOString();
+    var end = moment().endOf('day').toISOString();
+
+    Attendance.find({ createdAt: { $gte: start, $lte: end } }).populate({ path: 'user', populate: { path: 'branch' } }).exec().then(docs => {
+        if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
+        return res.status(200).json(docs)
+    }).catch(err => {
+        serverError(err, req, res)
+    })
+}
+
+exports.getAllForWeek = async (req, res, next) => {
+    var start = moment().startOf('week').toISOString();
+    var end = moment().endOf('week').toISOString();
+
+    Attendance.find({ createdAt: { $gte: start, $lte: end } }).populate({ path: 'user', populate: { path: 'branch' } }).exec().then(docs => {
+        if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
+        return res.status(200).json(docs)
+    }).catch(err => {
+        serverError(err, req, res)
+    })
+}
+
+exports.getAllForFortnight = async (req, res, next) => {
+    var start = moment().startOf('week').toISOString();
+    var end = moment().endOf('week').toISOString();
+
+    Attendance.find({ createdAt: { $gte: start, $lte: end } }).populate({ path: 'user', populate: { path: 'branch' } }).exec().then(docs => {
+        if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
+        return res.status(200).json(docs)
+    }).catch(err => {
+        serverError(err, req, res)
+    })
+}
+
+exports.getAllForMonth = async (req, res, next) => {
+    var start = moment().startOf('month').toISOString();
+    var end = moment().endOf('month').toISOString();
+
+    Attendance.find({ createdAt: { $gte: start, $lte: end } }).populate({ path: 'user', populate: { path: 'branch' } }).exec().then(docs => {
         if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
         return res.status(200).json(docs)
     }).catch(err => {
