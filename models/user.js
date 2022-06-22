@@ -48,6 +48,10 @@ const userSchema = new mongoose.Schema({
     branch: {
         type: [],
         ref: 'Branch'
+    },
+    status: {
+        type: Boolean,
+        default: true
     }
 },
     { timestamps: true }

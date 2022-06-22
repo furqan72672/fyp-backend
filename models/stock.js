@@ -17,6 +17,10 @@ const stockSchema = new mongoose.Schema({
     quantity: {
         type: Number,
     },
+    status: {
+        type: Boolean,
+        default: true
+    }
 },
     { timestamps: true }
 )

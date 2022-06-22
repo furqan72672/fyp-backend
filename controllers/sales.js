@@ -21,13 +21,6 @@ exports.addSale = (req, res, next) => {
     })
 }
 
-exports.getAll = (req, res, next) => {
-    Sale.find().populate('user').exec().then(docs => {
-        if (docs.length === 0) return res.status(200).json({ message: "DB is empty" })
-        return res.status(200).json(docs)
-    }).catch()
-}
-
 exports.getAllForManager = async (req, res, next) => {
     var salesmen = [];
     var docs = await Branch.find({ manager: req.userData.id }).exec().catch(err => {

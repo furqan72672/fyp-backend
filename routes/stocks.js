@@ -11,10 +11,4 @@ router.post('/', auth, StockController.addStock)
 
 router.patch('/:id', manager, StockController.patchStock)
 
-// router.post('/signup', UserController.signUp)
-
-// router.get('/profile/:userId', auth, UserController.getProfile)
-
-// router.post('/sign-in', UserController.signIn)
-
 module.exports = router

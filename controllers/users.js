@@ -5,20 +5,6 @@ const bcrypt = require('bcryptjs')
 const authError = require('../utils/unauthorizedError')
 const jwt = require('jsonwebtoken')
 
-exports.getAll = (req, res, next) => {
-    User.find({ email: req.userData.email }).exec().then(docs => {
-        if (docs[0].guard === 2) {
-            User.find().exec().then(docs => {
-                return res.status(200).json(docs)
-            })
-        }
-        else {
-            return res.status(406).json({ error: "Permission Error" })
-        }
-    }).catch(err => {
-        serverError(err, req, res)
-    })
-}
 
 exports.getProfile = (req, res, next) => {
     User.find({ _id: req.userData.id }).populate({ path: 'branch', populate: { path: 'manager salesman' } }).exec().then(docs => {

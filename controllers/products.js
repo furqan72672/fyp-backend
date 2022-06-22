@@ -1,6 +1,4 @@
-const mongoose = require('mongoose')
 const Product = require('../models/product')
-const User = require('../models/user')
 const serverError = require('../utils/internalServerError')
 // const authError = require('../utils/unauthorizedError')
 
@@ -38,32 +36,3 @@ exports.getBarcode = (req, res, next) => {
         serverError(err, req, res)
     })
 }
-
-exports.createOne = (req, res, next) => {
-    User.find({ _id: req.userData.id }).exec().then(docs => {
-        if (docs[0].guard == 2) {
-            const product = new Product({
-                _id: mongoose.Types.ObjectId(),
-                name: req.body.name,
-                barcode: req.body.barcode,
-                purchase_price: req.body.purchase_price,
-                sale_price: req.body.sale_price,
-                seige_code: req.body.seige_code,
-                supplier: req.body.supplier,
-                brand: req.body.brand,
-            })
-            product.save().then(doc => {
-                return res.status(201).json(doc)
-            }).catch(err => {
-                serverError(err, req, res)
-            })
-        }
-        else {
-            return res.status(406).json({ message: "Privilege error" })
-        }
-    }).catch(err => {
-        serverError(err, req, res)
-    })
-
-}
-
