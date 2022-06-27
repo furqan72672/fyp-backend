@@ -85,33 +85,25 @@ exports.addStock = async (req, res, next) => {
     }
 }
 
+exports.updateStock = async (req, res, next) => {
+
+    Stock.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec().then(doc => {
+        if (doc === null) return res.status(404).json({ message: 'Stock not found ' })
+        return res.status(201).json(doc)
+    }).catch(err => {
+        serverError(err, req, res)
+    })
+}
+
 exports.deleteStock = async (req, res, next) => {
 
-    Stock.findOneAndUpdate({ _id: req.params.id }, { status: false }, { new: false }).exec().then(doc => {
+    Stock.findOneAndUpdate({ _id: req.params.id }, { status: false }, { new: true }).exec().then(doc => {
         if (doc === null) return res.status(404).json({ message: 'Stock not found ' })
         return res.status(201).json({ message: 'Stock deleted ' })
     }).catch(err => {
         serverError(err, req, res)
     })
 }
-
-// exports.patchStock = async (req, res, next) => {
-//     var doc = await Stock.findOneAndUpdate({ _id: req.params.id }, { quantity: req.body.quantity }, { new: true }).exec().catch(err => {
-//         serverError(err, req, res)
-//     })
-//     console.log(doc)
-
-//     if (doc) {
-//         return res.status(201).json(doc)
-//     }
-
-//     else {
-//         return res.status(404).json({ message: "Stock not Found" })
-//     }
-// }
-
-
-
 
 
 
@@ -200,8 +192,17 @@ exports.addProduct = (req, res, next) => {
     })
 }
 
+exports.updateProduct = (req, res, next) => {
+    Product.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec().then(doc => {
+        if (doc === null) return res.status(404).json({ message: 'Product not found ' })
+        return res.status(201).json(doc)
+    }).catch(err => {
+        serverError(err, req, res)
+    })
+}
+
 exports.deleteProduct = (req, res, next) => {
-    Product.findOneAndUpdate({ _id: req.params.id }, { status: false }, { new: false }).exec().then(doc => {
+    Product.findOneAndUpdate({ _id: req.params.id }, { status: false }, { new: true }).exec().then(doc => {
         if (doc === null) return res.status(404).json({ message: 'Product not found ' })
         return res.status(201).json({ message: 'Product deleted' })
     }).catch(err => {
@@ -227,14 +228,6 @@ exports.getOneUser = (req, res, next) => {
         serverError(err, req, res)
     })
 }
-
-// exports.updateUser = (req, res, next) => {
-//     User.find({_id:req.params.id}).exec().then(docs => {
-//         return res.status(200).json(docs)
-//     }).catch(err => {
-//         serverError(err, req, res)
-//     })
-// }
 
 exports.deleteUser = (req, res, next) => {
     User.findOneAndUpdate({ _id: req.params.id }, { status: false }, { new: false }).exec().then(docs => {
